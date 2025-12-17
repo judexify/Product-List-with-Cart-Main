@@ -1,0 +1,271 @@
+/* ===================================
+   FONT DECLARATIONS
+   =================================== */
+@font-face {
+  font-family: "Red Hat Text";
+  src: url("assets/fonts/static/RedHatText-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Red Hat Text";
+  src: url("assets/fonts/static/RedHatText-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Red Hat Text";
+  src: url("assets/fonts/static/RedHatText-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* ===================================
+   CSS RESET
+   =================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+  padding: 0;
+}
+
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* BASE STYLES */
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  letter-spacing: -0.01em;
+  font-family: "Red Hat Text", sans-serif;
+  padding: 0 8.4rem;
+  background-color: #f4edebff;
+}
+
+/* LAYOUT */
+
+.product-list {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 6.4rem;
+  gap: 3.6rem;
+}
+
+/* DESSERTS SECTION */
+
+.desserts {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.title {
+  color: #260f08ff;
+  font-size: 3.6rem;
+  font-weight: 700;
+}
+
+.desserts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  gap: 2rem;
+}
+
+/* PRODUCT ITEMS */
+
+.each-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.each-image-box {
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 3.6rem;
+}
+
+.each-product-image {
+  border-radius: 9px;
+  object-fit: contain;
+  transition: all 250ms ease;
+}
+
+.each-product-image:hover {
+  transform: scale(1.5);
+}
+
+.product-categories {
+  margin-bottom: 0.5rem;
+  font-size: 1.6rem;
+}
+
+.product-name {
+  margin-bottom: 0.5rem;
+  color: #260f08ff;
+  font-weight: 600;
+  font-size: 1.8rem;
+}
+
+.product-price {
+  color: #c73a0fff;
+  font-size: 1.8rem;
+}
+
+/* ADD TO CART BUTTON */
+
+.add-to-cart-btn {
+  position: absolute;
+  background-color: #f4edebff;
+  border-radius: 18px;
+  display: flex;
+  padding: 1rem 3.6rem;
+  gap: 1.2rem;
+  align-items: center;
+  border: 1px solid #87635aff;
+  bottom: 9.6rem;
+  left: 20%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+  border: 1px solid #c73a0fff;
+}
+
+.addToCartText {
+  color: #260f08ff;
+  font-size: 1.6rem;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.addToCartText:hover {
+  color: #c73a0fff;
+}
+
+/* QUANTITY CONTROLS */
+
+.minus {
+  color: #f4edebff;
+  border-radius: 50%;
+  padding: 0.2rem 0.6rem;
+  outline: 1px solid;
+  font-size: 1.6rem;
+}
+
+.plus {
+  color: #f4edebff;
+  border-radius: 50%;
+  padding: 0.2rem 0.6rem;
+  outline: 1px solid;
+  font-size: 1.6rem;
+  align-self: flex-end;
+}
+
+.minus:hover,
+.plus:hover {
+  background-color: #f4edebff;
+  color: #c73a0fff;
+}
+
+.numberQuantity {
+  color: #f4edebff;
+  font-size: 1.2rem;
+  margin-right: 2.4rem;
+  margin-left: 2.4rem;
+}
+
+/* SHOPPING CART */
+
+.myCart-order {
+  background-color: #fcf9f7ff;
+  align-self: start;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.your-cart {
+  color: #c73a0fff;
+  font-weight: 700;
+  font-size: 2.4rem;
+  margin-bottom: 3.6rem;
+}
+
+.cart-content {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 3.6rem;
+}
+
+.cart-content img {
+  width: 30%;
+}
+
+.empty-cart-text {
+  color: #87635aff;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.attribution {
+  font-size: 11px;
+  text-align: center;
+}
+
+.attribution a {
+  color: hsl(228, 45%, 44%);
+}
