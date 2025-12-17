@@ -8,7 +8,7 @@ function renderProducts(products) {
       (product) => `
   <div class="each-items">
   <div class="each-image-box">
-  <img class="each-product-image" src="${product.image.desktop}" alt="${product.name}" />
+  <img class="each-product-image" src="${product.image.desktop}" data-itemNumber="${product.image.dataNumber}" alt="${product.name}" />
   </div>
   <p class="product-categories">${product.category}</p>
   <p class="product-name">${product.name}</p>
@@ -43,9 +43,34 @@ function forAddCart(e) {
   }
 }
 
-let isCart = false;
+let isCartHoverDialog = false;
+let currentNumberDisplayed = new Array(9).fill(0);
+let currentNumArr = 0;
+
+function forPlus(e) {
+  const cnd = currentNumArr++;
+  currentNumberDisplayed[myPlusData - 1] = cnd;
+
+  e.target
+    .closest(".add-to-cart-btn")
+    .querySelector(".numberQuantity").textContent = cnd;
+}
+
+// function forMinus(e) {
+//   const quantity = document.querySelector(".numberQuantity");
+//   if (quantity.textContent <= 0) return;
+//   currentNumberDisplayed--;
+//   quantity.textContent = currentNumberDisplayed;
+// }
+
 productGrid.addEventListener("click", function (e) {
+  isCartHoverDialog = true;
   if (!e.target.matches(".addToCartText")) return;
-  isCart = true;
+  if (e.target.matches(".plus")) {
+    forPlus(e);
+  }
+  if (e.target.matches(".minus")) {
+    forMinus(e);
+  }
   forAddCart(e);
 });
