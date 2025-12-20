@@ -1,28 +1,4 @@
 /* ===================================
-   FONT DECLARATIONS
-   =================================== */
-@font-face {
-  font-family: "Red Hat Text";
-  src: url("assets/fonts/static/RedHatText-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Red Hat Text";
-  src: url("assets/fonts/static/RedHatText-SemiBold.ttf") format("truetype");
-  font-weight: 600;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Red Hat Text";
-  src: url("assets/fonts/static/RedHatText-Bold.ttf") format("truetype");
-  font-weight: 700;
-  font-style: normal;
-}
-
-/* ===================================
    CSS RESET
    =================================== */
 *,
@@ -71,6 +47,9 @@ select {
   font: inherit;
 }
 
+.hidden {
+  display: none !important;
+}
 /* BASE STYLES */
 
 body {
@@ -168,16 +147,27 @@ body {
 .add-to-cart-btn {
   position: absolute;
   background-color: #f4edebff;
-  border-radius: 18px;
-  display: flex;
-  padding: 1rem 3.6rem;
-  gap: 1.2rem;
-  align-items: center;
+  border-radius: 30px;
   border: 1px solid #87635aff;
   bottom: 9.6rem;
-  left: 20%;
+  left: 4.2rem;
+  overflow: hidden;
   cursor: pointer;
   transition: all 0.3s ease;
+}
+.beforeHover {
+  display: flex;
+  padding: 1rem 3.6rem;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.afterHover {
+  display: flex;
+  padding: 1rem;
+  align-items: center;
+  background-color: #c73a0fff;
+  padding: 1rem 1.6rem;
 }
 
 .add-to-cart-btn:hover {
@@ -222,7 +212,7 @@ body {
 
 .numberQuantity {
   color: #f4edebff;
-  font-size: 1.2rem;
+  font-size: 1.8rem;
   margin-right: 2.4rem;
   margin-left: 2.4rem;
 }
