@@ -1,8 +1,10 @@
 "use strict";
 
 const productGrid = document.querySelector(".desserts-grid");
+const cartContent = document.querySelector(".cart-content");
 
 let productsData = {};
+let cart = [];
 
 document.addEventListener("DOMContentLoaded", () => {
   initApp();
@@ -51,45 +53,92 @@ const renderProducts = (products) => {
 };
 
 // switch to the afterHover UI
-const uiChangeForAddToCart = (e) => {
-  const eachItem = e.target.closest(".each-items");
+const uiChangeForAddToCart = (eachItem) => {
   const beforeHover = eachItem.querySelector(".beforeHover");
   const afterHover = eachItem.querySelector(".afterHover");
   beforeHover.classList.add("hidden");
   afterHover.classList.remove("hidden");
 };
+
 // function for plus
 
-const forPlus = (e) => {
-  const eachItem = e.target.closest(".each-items");
-  const quantityEl = eachItem.querySelector(".numberQuantity");
-  const id = eachItem.dataset.productid;
-
-  productsData[id].quantity += 1;
-  quantityEl.textContent = productsData[id].quantity;
-  console.log(productsData);
+const forPlus = (i, q) => {
+  productsData[i].quantity += 1;
+  renderUIforPanM(i, q);
 };
 
 // function for minus
-const forMinus = (e) => {
+const forMinus = (i, q) => {
+  if (productsData[i].quantity === 0) return;
+  productsData[i].quantity -= 1;
+  renderUIforPanM(i, q);
+};
+const renderUIforPanM = (i, q) => {
+  q.textContent = productsData[i].quantity;
+};
+// function for render cart html inner content
+const forCartHtml = (product) => {
+  cartContent.innerHTML = "";
+  if (cart.length === 0) {
+    cartContent.innerHTML = ` <p class="your-cart">Your Cart(<span class="quantity">0</span>)</p>
+        <div class="cart-content">
+          <img
+            src="./assets/images/illustration-empty-cart.svg"
+            alt="Empty Cart Logo"
+          />
+          <p class="empty-cart-text">Your added items will appear here</p>`;
+  }
+
+  const html = cart
+    .map((item) => {
+      return `
+        <div class="cart-item">
+          <p class="cart-name">${item.name}</p>
+          <p class="cart-qty">x${item.quantity}</p>
+          <p class="cart-price">$${(item.price * item.quantity).toFixed(2)}</p>
+        </div>
+      `;
+    })
+    .join("");
+  cartContent.innerHTML = html;
+};
+
+// function for cart
+const makeCart = (id) => {
+  const product = productsData[id];
+  const index = cart.findIndex((item) => item.dataNumber === id);
+  // If quantity is zero, remove the product from the cart if it exists
+
+  if (product.quantity === 0 && index !== -1) {
+    cart.splice(index, 1);
+    return;
+  }
+
+  // if its not in the cart then add it
+  if (index === -1) {
+    cart.push({ ...product });
+  } else {
+    // if it is n the cart just update the value
+    cart[index].quantity = product.quantity;
+  }
+};
+
+// Event Delegation
+productGrid.addEventListener("click", (e) => {
   const eachItem = e.target.closest(".each-items");
   const quantityEl = eachItem.querySelector(".numberQuantity");
   const id = eachItem.dataset.productid;
 
-  if (productsData[id].quantity === 0) return;
-
-  productsData[id].quantity -= 1;
-  quantityEl.textContent = productsData[id].quantity;
-};
-// Event Delegation
-productGrid.addEventListener("click", (e) => {
   const link = e.target;
   if (e.target.matches(".plus")) {
-    forPlus(e);
+    forPlus(id, quantityEl);
+    makeCart(id);
   }
   if (e.target.matches(".minus")) {
-    forMinus(e);
+    forMinus(id, quantityEl);
+    makeCart(id);
   }
   if (!link.matches(".addToCartText")) return;
-  uiChangeForAddToCart(e);
+  uiChangeForAddToCart(eachItem);
+  console.log(cart);
 });
