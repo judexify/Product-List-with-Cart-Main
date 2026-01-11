@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initApp();
 });
 
-let productsData = {};
 let cart = [];
 
 const getEmployees = () => {
