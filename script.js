@@ -30,7 +30,7 @@ const createQuantityControl = () => {
 
   const quantityDisplay = document.createElement("span");
   quantityDisplay.classList.add("quantity-display");
-  quantityDisplay.textContent = "1";
+  quantityDisplay.textContent = "0";
 
   const incrementBtn = document.createElement("button");
   incrementBtn.classList.add("quantity-btn", "increment-btn");
@@ -40,9 +40,10 @@ const createQuantityControl = () => {
   return quantityControl;
 };
 
-const createProductCard = (eachProduct) => {
+const createProductCard = (eachProduct, i) => {
   const eachProductContainer = document.createElement("div");
   eachProductContainer.classList.add("eachProductContainer");
+  eachProductContainer.dataset.productId = `${i + 1}`;
 
   const productImageWrapper = document.createElement("div");
   productImageWrapper.classList.add("product-image-wrapper");
@@ -72,6 +73,9 @@ const createProductCard = (eachProduct) => {
     productImageWrapper.classList.add("selected");
     addToCartBtn.style.display = "none";
     quantityControl.style.display = "flex";
+
+    eachProduct.dataNumber = 0;
+    handleQuantityControls(quantityControl, eachProduct);
   });
 
   productImageWrapper.append(productImage, addToCartBtn, quantityControl);
@@ -97,10 +101,42 @@ const createProductCard = (eachProduct) => {
   return eachProductContainer;
 };
 
+const incrementBtnFn = (eachProduct, quantityDisplay) => {
+  quantityDisplay.textContent =
+    eachProduct.dataNumber =
+    eachProduct.dataNumber +=
+      1;
+};
+const decrementBtnFn = (eachProduct, quantityDisplay) => {
+  if (eachProduct.dataNumber <= 0) return;
+
+  quantityDisplay.textContent =
+    eachProduct.dataNumber =
+    eachProduct.dataNumber -=
+      1;
+};
+
+const handleQuantityControls = (quantityControl, eachProduct) => {
+  const decrementBtn = quantityControl.querySelector(".decrement-btn");
+  const incrementBtn = quantityControl.querySelector(".increment-btn");
+  const quantityDisplay = quantityControl.querySelector(".quantity-display");
+  const attachedLink = quantityControl.closest("[data-product-id]");
+
+  decrementBtn.addEventListener("click", () => {
+    console.log("Decrement clicked");
+    decrementBtnFn(eachProduct, quantityDisplay);
+  });
+
+  incrementBtn.addEventListener("click", () => {
+    console.log("Increment clicked");
+    incrementBtnFn(eachProduct, quantityDisplay);
+  });
+};
+
 const displayProductItems = (data) => {
   productGrid.innerHTML = "";
-  data.forEach((eachProduct) => {
-    const productCard = createProductCard(eachProduct);
+  data.forEach((eachProduct, i) => {
+    const productCard = createProductCard(eachProduct, i);
     productGrid.appendChild(productCard);
   });
 };
